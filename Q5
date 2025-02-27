@@ -1,0 +1,37 @@
+-- Question
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string s, int numRows);
+-- Answer
+class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows == 1 || s.length()<= numRows) return s;
+
+        StringBuilder[] rows = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            rows[i] = new StringBuilder();
+        }
+
+        int index = 0 , step = 1;
+        for(char c : s.toCharArray()){
+            rows[index].append(c); // Thêm c vào rows
+
+            if(index==0) step = 1; // Khi index bằng 0 thì để step là 1 để nhảy sang rows tiếp theo
+            if(index== numRows -1) step =-1; // Khi index bằng vị trí row cuối thì step là -1 để chuyển đến rows trước, tạo nên cấu trúc zic zag
+
+            index += step;
+        }
+        StringBuilder target = new StringBuilder();
+        for(StringBuilder c : rows){
+            target.append(c);
+        }
+        return target.toString();
+    }
+}
